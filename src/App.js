@@ -7,6 +7,7 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Blog from './components/Blog';
 import Navbar from "./components/Navbar";
+import Write from "./components/Write";
 
 const AppLayout=()=>{
   return(
@@ -39,6 +40,10 @@ const appRouter=createBrowserRouter([
       {
         path: "/blog/:id",
         element: <Blog/>,
+      },
+      {
+        path: "/write",
+        element: <Write/>,
       },
     ],
   },
