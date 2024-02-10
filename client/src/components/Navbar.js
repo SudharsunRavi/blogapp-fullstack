@@ -11,7 +11,9 @@ const Navbar = () => {
     <div className="mx-10">
         <div className="flex justify-between">
             <div>
-                <img src={LOGO} alt="logo" className="w-36" />
+                <Link to="/">
+                    <img src={LOGO} alt="logo" className="w-36" />
+                </Link>
             </div>
             <div>
                 <ul className="flex mt-16">
