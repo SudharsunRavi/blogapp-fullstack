@@ -55,7 +55,7 @@ const Blog = () => {
           </div>
 
           {currentUser.name===post.name && <div className="flex gap-5 ml-7 mt-5">
-            <Link to="/write?edit=2">
+            <Link to="/write?edit=2" state={post}>
               <img src={EDIT_IMG} alt="edit" className="w-[20px]"/>
             </Link>
             <img src={DELETE_IMG} alt="delete" className="w-[20px] cursor-pointer" onClick={deleteBlog}/>
