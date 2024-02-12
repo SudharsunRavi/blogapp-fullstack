@@ -17,57 +17,56 @@ const Write = () => {
       console.log("Uploading image...");
       const formData = new FormData();
       formData.append("file", file);
-      
+  
       const response = await fetch("http://localhost:5001/api/v1/upload", {
         method: "POST",
         credentials: "include",
         body: formData,
       });
   
-      const data = await response.json(); // Corrected line
-  
-      console.log("Image upload response:", data);
-  
-      return data; // Corrected line
+      if (response.ok) {
+        const contentType = response.headers.get("content-type");
+        if (contentType && contentType.includes("application/json")) {
+          const data = await response.json();
+          return data;
+        } else {
+          const textData = await response.text();
+          return textData;
+        }
+      } else {
+        throw new Error("Image upload failed");
+      }
     } catch (error) {
       console.error("Image upload error:", error);
       throw error;
     }
   };
   
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted. Processing...");
     try {
       const ImageURL = await upload();
-      console.log("Image upload successful:", ImageURL);
   
       if (state) {
-        const response = await axios.put(`/blogs/${state._id}`, {
+        const response = await axios.put(`http://localhost:5001/api/v1/blogs/${state.id}`, {
           title,
           desc: value,
           category,
           image: file ? ImageURL : "",
-        });
-        console.log("Update Blog Response:", response.data);
+        }, { withCredentials: true });
       } else {
-        const response = await axios.post("/api/v1/blogs", {
+        const response = await axios.post("http://localhost:5001/api/v1/blogs/", {
           title,
           desc: value,
           category,
           image: file ? ImageURL : "",
           date: moment(Date.now()).format("YYYY-MM-DD, HH:mm:ss"),
-        });
-        console.log("Create Blog Response:", response.data);
+        }, { withCredentials: true });
       }
-  
-      console.log("Form submission successful!");
-    } catch (error) {
-      console.error("Error:", error);
+    } catch (error) {  
+        console.error("Error:", error);
     }
   };
-  
   
   return (
     <div className=" ml-20 mt-16 flex">

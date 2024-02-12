@@ -11,23 +11,21 @@ const blogRoutes = require('./routes/blogRoutes');
 const auth = require('./routes/auth');
 const userRoutes = require('./routes/userRoutes');
 
-
 const app=express();
 dbConnect();
 
 const corsOptions = {
-    origin: 'http://localhost:3000', // Replace with the actual origin of your frontend
-    credentials: 'include',
+  origin: 'http://localhost:3000',
+  credentials: true,
 };
-
-app.use(bodyParser.json());
-app.use(express.json());
-app.use(cookieParser());
 app.use(cors(corsOptions));
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, path.join(__dirname, '../client/public/uploads/')); 
+      cb(null, path.resolve(__dirname, '../client/public/uploads/')); 
     },
     filename: function (req, file, cb) {
       const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);

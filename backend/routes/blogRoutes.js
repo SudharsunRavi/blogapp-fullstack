@@ -45,7 +45,7 @@ router.post('/', asyncHandler(async(req, res) => {
 
   jwt.verify(token, process.env.JWT_SECRET, async (err, userInfo) => {
     if (err) return res.status(403).json("Token is not valid!");
-
+    console.log(userInfo._id)
     try {
       console.log("Request Body:", req.body); // Add this line to log the request body
 
@@ -54,7 +54,7 @@ router.post('/', asyncHandler(async(req, res) => {
         desc: req.body.desc,
         image: req.body.image,
         category: req.body.category,
-        uid: userInfo.id,
+        uid: userInfo._id,
       });
 
       await post.save();
