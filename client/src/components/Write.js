@@ -14,7 +14,6 @@ const Write = () => {
 
   const upload = async () => {
     try {
-      console.log("Uploading image...");
       const formData = new FormData();
       formData.append("file", file);
   

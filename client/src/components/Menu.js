@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Menu = ({category}) => {
     // const posts = [
@@ -47,13 +47,17 @@ const Menu = ({category}) => {
 
   return (
     <div className="flex flex-col gap-6 ml-12 w-[20%]">
-        <h1 className="text-3xl font-bold">Similar posts you may like</h1>
+        <h1 className="text-3xl font-bold">Similar posts in the category</h1>
 
         {posts.map((post)=>(
-            <div className="flex flex-col gap-2 border-b-2 pb-10" key={post.id}>
-                <img src={post.img} alt="poster" className="w-[200px] h-[200px]"/>
+            <div className="flex flex-col gap-2 border-b-2 pb-10" key={post._id}>
+                <img src={"../uploads/"+ post.image} alt="poster" className="w-[200px] h-[200px]"/>
                 <h1 className="font-bold text-xl">{post.title}</h1>
-                <button className="bg-black text-white rounded-lg py-1 mt-1 hover:bg-white hover:text-black hover:border hover:border-black w-28">Read More</button>
+                <button className="bg-black text-white rounded-lg py-1 mt-1 hover:bg-white hover:text-black hover:border hover:border-black w-28">
+                  <Link to={`/blog/${post._id}`}>
+                    Read More
+                  </Link>
+                </button>
             </div>
         ))}
           
